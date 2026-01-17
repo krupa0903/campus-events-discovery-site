@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About UMIT | SNDT Women's University</title>
+    <style>
+       body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* 1. Add your image here */
+    background-image: linear-gradient(rgba(123, 63, 0, 0.4), rgba(123, 63, 0, 0.4)), url('https://static.wixstatic.com/media/847fd2_cd5a4469bd8842d28c48d9cd30d02844~mv2.jpg/v1/fill/w_640,h_342,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/847fd2_cd5a4469bd8842d28c48d9cd30d02844~mv2.jpg');
+    
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 850px;
+    margin: 50px auto;
+    /* 2. Make background semi-transparent white (0.9) */
+    background: rgba(255, 255, 255, 0.95);
+    /* 3. Add a blur effect to the background image behind the box */
+    backdrop-filter: blur(5px);
+    
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-top: 8px solid #7B3F00;
+}
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            text-decoration: none;
+            color: #7B3F00;
+            font-weight: bold;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover { color: #d8a0a0; }
+
+        h1 { font-size: 2.2rem; margin-bottom: 5px; text-transform: uppercase; }
+        h2 { color: #d87093; font-size: 1.1rem; margin-top: 0; }
+
+        section { margin-bottom: 35px; }
+        
+        h3 {
+            border-left: 5px solid #F4C2C2;
+            padding-left: 15px;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .dept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .dept-card {
+            background: #fffafa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            text-align: center;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        .dept-card:hover {
+            transform: translateY(-5px);
+            background: #F4C2C2;
+            color: white;
+        }
+
+        .vision-box {
+            background: #7B3F00;
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            font-style: italic;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="main.html" class="back-btn">← Back to Events Portal</a>
+        
+        <header>
+            <h1>U.M.I.T.</h1>
+            <h2>Usha Mittal Institute of Technology</h2>
+            <p>SNDT Women's University, Mumbai</p>
+        </header>
+
+        <section>
+            <h3>🏫 About the Institute</h3>
+            <p>Established with a vision to empower women through technical education, UMIT is a premier engineering college under SNDT Women’s University. We foster an environment of innovation, leadership, and excellence.</p>
+        </section>
+
+        <section>
+            <h3>🎓 Our Departments</h3>
+            <div class="dept-grid">
+                <div class="dept-card">Computer Engineering</div>
+                <div class="dept-card">Information Technology</div>
+                <div class="dept-card">Computer Science and technology</div>
+                <div class="dept-card">Artificial Intelligence</div>
+                <div class="dept-card">Data Science</div>
+                <div class="dept-card">Electronics and computer engineering</div>
+            </div>
+        </section>
+
+        <section>
+            <h3>🌟 Our Vision</h3>
+            <div class="vision-box">
+                "To create a world-class environment for women engineers that fosters innovation, professional excellence, and ethical values."
+            </div>
+        </section>
+
+        <footer>
+            <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 20px;">
+            <p>Made with Love ❤️ from UMIT</p>
+        </footer>
+    </div>
+
+</body>
+</html>

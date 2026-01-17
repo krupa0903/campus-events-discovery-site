@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Events Discovery</title>
+    <style>
+        
+        /* CSS STYLES - Adjust colors and fonts here */
+        :root {
+            --primary-color: #3498db; /* Change this to your college color */
+            --bg-color: #f2b78b;
+            --card-bg: #f58b8b;
+            --text-main: #850606;
+        }
+
+        
+           body {
+    /* Replace 'your-image.jpg' with your actual file name or URL */
+    background-image: url('https://static.wixstatic.com/media/847fd2_cd5a4469bd8842d28c48d9cd30d02844~mv2.jpg/v1/fill/w_640,h_342,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/847fd2_cd5a4469bd8842d28c48d9cd30d02844~mv2.jpg');
+    
+    /* This makes the image cover the entire screen */
+    background-size: cover;
+    
+    /* This keeps the image from moving when you scroll */
+    background-attachment: fixed;
+    
+    /* This centers the image */
+    background-position: center;
+    
+    /* This prevents the image from repeating if it's small */
+    background-repeat: no-repeat;
+}
+        
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+        }
+        .events-grid {
+    display: flex;          /* This aligns them horizontally */
+    flex-direction: row;    /* Ensures they stay in a row */
+    gap: 20px;              /* Adds space between the cards */
+    flex-wrap: wrap;        /* Moves cards to next line on small screens */
+    justify-content: center; /* Centers the cards in the middle of the page */
+}
+
+.event-details {
+    flex: 1;                /* Makes both cards equal width */
+    min-width: 280px;       /* Prevents them from getting too squashed */
+    max-width: 400px;       /* Prevents them from getting too wide */
+    background-color: white; /* Optional: for visibility */
+    padding: 15px;
+    border-radius: 8px;
+    border-bottom: 5px solid #7B3F00; /* Matching your Chocolate theme */
+}
+
+        /* Monthly Navigation */
+        .month-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+        }
+
+        .month-btn {
+            padding: 10px 20px;
+            border: none;
+            background: var(--card-bg);
+            cursor: pointer;
+            border-radius: 20px;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+
+        .month-btn:hover, .month-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Events Grid */
+        .events-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .month-section {
+            display: none; /* Hidden by default, toggled by JS */
+        }
+
+        .month-section.active {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        /* Event Card */
+        .event-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .event-image {
+            width: 100%;
+            height: 180px;
+            background-color: #ddd; /* Placeholder color */
+            object-fit: cover;
+        }
+
+        .event-details {
+            padding: 20px;
+        }
+
+        .event-date {
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .event-title {
+            margin: 10px 0;
+            font-size: 1.25rem;
+        }
+
+        .event-desc {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    
+    <header style="background-color: #7B3F00; padding: 15px 5%; border-bottom: 4px solid #F4C2C2;">
+    <nav style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+        
+        <div style="display: flex; gap: 25px; align-items: center;">
+            
+            <div style="text-align: center;">
+    <a href="https://share.google/sqlTutBirsYJwAVWK" target="_blank" style="text-decoration: none; display: inline-block;">
+        
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCUT6rTiDFnKKogMwp2USqK1r-G606zxXL8A&s" 
+             alt="CSI" 
+             style="width: 50px; height: 50px; background: #fff; border-radius: 50%; padding: 5px; border: 2px solid #F4C2C2; cursor: pointer; transition: transform 0.2s;">
+        
+        <div style="color: #F4C2C2; font-size: 10px; font-weight: bold; margin-top: 4px;">CSI UMIT</div>
+        
+    </a> </div>
+            <div style="text-align: center;">
+    <a href="https://share.google/75wV86sysKb84HqfV" target="_blank" style="text-decoration: none; display: inline-block;">
+        
+        <img src="https://media.licdn.com/dms/image/v2/C560BAQEE35-pgd0Bmg/company-logo_200_200/company-logo_200_200/0/1632056967048?e=2147483647&v=beta&t=DSWc4-Hb1P-zp_g0tqalRvCCFhAcw2Ks7LrbayxQM90" 
+             alt="IEEE" 
+             style="width: 50px; height: 50px; background: #fff; border-radius: 50%; padding: 5px; border: 2px solid #F4C2C2; cursor: pointer;">
+        
+        <div style="color: #F4C2C2; font-size: 10px; font-weight: bold; margin-top: 4px;">IEEE UMIT</div>
+        
+    </a>
+</div>
+           <div style="text-align: center;">
+    <a href="https://share.google/nRUCOiV2HbxopVtg3" target="_blank" style="text-decoration: none; display: inline-block;">
+        
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShy9z7Ingg2oRhZhdPiwojKCGCBkXVoDZxdw&s" 
+             alt="E-CELL" 
+             style="width: 50px; height: 50px; background: #fff; border-radius: 50%; padding: 5px; border: 2px solid #F4C2C2; cursor: pointer;">
+        
+        <div style="color: #F4C2C2; font-size: 10px; font-weight: bold; margin-top: 4px;">E-CELL UMIT</div>
+        
+    </a>
+</div>
+           <div style="text-align: center;">
+    <a href="https://share.google/qA8HvqjA7p9OzufGx" target="_blank" style="text-decoration: none; display: inline-block;">
+        
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvnNT5JPTHNpxDaRYrpbAPoCIg7Xq0g513kw&s" 
+             alt="GDG" 
+             style="width: 50px; height: 50px; background: #fff; border-radius: 50%; padding: 5px; border: 2px solid #F4C2C2; cursor: pointer;">
+        
+        <div style="color: #F4C2C2; font-size: 10px; font-weight: bold; margin-top: 4px;">GDG UMIT</div>
+        
+    </a>
+</div>
+           <div style="text-align: center;">
+    <a href="https://share.google/Ke5KrdSo9IYoZhp0a" target="_blank" style="text-decoration: none; display: inline-block;">
+        
+        <img src="https://static.wixstatic.com/media/db66c0_330a8dd9e235492b92d5fe0fa73f12d8~mv2.jpg/v1/fill/w_640,h_414,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/db66c0_330a8dd9e235492b92d5fe0fa73f12d8~mv2.jpg" 
+             alt="GFG" 
+             style="width: 50px; height: 50px; background: #fff; border-radius: 50%; padding: 5px; border: 2px solid #F4C2C2; cursor: pointer; object-fit: cover;">
+        
+        <div style="color: #F4C2C2; font-size: 10px; font-weight: bold; margin-top: 4px;">GFG UMIT</div>
+        
+    </a>
+    </div>
+</div>
+
+        <div>
+           
+            <a href="contact us.html" style="text-decoration: none; color: #7B3F00; background-color: #F4C2C2; padding: 10px 20px; border-radius: 8px; font-weight: bold;">
+    CONTACT US
+</a>
+        </div>
+
+    </nav>
+</header>
+
+<header style="text-align: center; padding: 20px;">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC_byQVJHIQH1_JxdTK2wwwUrbxfLBntStIg&s" alt="UMIT Logo" style="height: 80px; width: auto; margin-bottom: 10px;">
+    
+    <h1 style="color:white;">|| UMIT Campus Events ||</h1>
+    <p style="color:white;">| Discover what's happening around your college campus. |</p>
+</header>
+
+<nav class="month-nav">
+    <button class="month-btn active" onclick="showMonth('jan')">Jan</button>
+    <button class="month-btn" onclick="showMonth('feb')">Feb</button>
+    <button class="month-btn" onclick="showMonth('mar')">Mar</button>
+    <button class="month-btn" onclick="showMonth('apr')">Apr</button>
+    <button class="month-btn" onclick="showMonth('may')">May</button>
+    <button class="month-btn" onclick="showMonth('jun')">Jun</button>
+    <button class="month-btn" onclick="showMonth('jul')">Jul</button>
+    <button class="month-btn" onclick="showMonth('aug')">Aug</button>
+    <button class="month-btn" onclick="showMonth('sep')">Sep</button>
+    <button class="month-btn" onclick="showMonth('oct')">Oct</button>
+    <button class="month-btn" onclick="showMonth('nov')">Nov</button>
+    <button class="month-btn" onclick="showMonth('dec')">Dec</button>
+</nav>
+
+<main class="events-container">
+    
+    <section id="jan" class="month-section active">
+        <article class="event-card">
+            <img src="https://images.squarespace-cdn.com/content/v1/56aa88925dc6de455460b6ac/f725e8a8-5014-41ac-ae08-ec560d21bb66/ASD-visionboardworkshop.jpg" alt="Event" class="event-image">
+            <div class="event-details">
+                <div class="event-date">January 15</div>
+                <h3 class="event-title">VISION BOARD WORKSHOP</h3>
+                <p class="event-desc">"Visualize your success! Join our hands-on workshop to map your future goals and turn your creative dreams into reality."</p>
+            </div></article>
+            <article class="event-card">
+            <img src="https://thumbs.dreamstime.com/b/open-mic-night-invites-performers-to-share-their-talents-intimate-venue-vintage-microphone-stands-next-sign-encouraging-359000581.jpg" alt="Event" class="event-image">
+            <div class="event-details">
+                <div class="event-date">January 19</div>
+                <h3 class="event-title">OPEN MIC</h3>
+                <p class="event-desc">(PEOTRY,RAP,STAND-UP)</p>
+            </div>
+        </article>
+        </section>
+
+    <section id="feb" class="month-section">
+        <article class="event-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzsrnYcyRmB1o8APKwdqa1nHEvk1TS4UyY0w&s" alt="Event" class="event-image">
+            <div class="event-details">
+                <div class="event-date">February 9 to 14</div>
+                <h3 class="event-title">Techfest</h3>
+                <p class="event-desc">"Join our premier TechFest! Explore cutting-edge innovation through competitive coding, robotics exhibitions, and expert seminars designed to bridge industry and academia".</p>
+            </div>
+        </article>
+        <article class="event-card">
+            <img src="https://static.wixstatic.com/media/38f414_97b0a0dc98c44e54a741a7ac841af3ac~mv2.jpg/v1/fill/w_250,h_155,al_c,q_90,enc_auto/38f414_97b0a0dc98c44e54a741a7ac841af3ac~mv2.jpg" alt="Event" class="event-image">
+            <div class="event-details">
+                <div class="event-date">February 20 TO 25</div>
+                <h3 class="event-title">PRE-ARCANES</h3>
+                <p class="event-desc">"The countdown to Arcanes begins! Join us for the Pre-Arcanes celebration to ignite the fest fever. Experience a high-energy afternoon featuring flash mobs, theme reveals, and exclusive sneak peeks. Don't miss the vibe—come dressed in your department colors and let’s start the ultimate celebration!"</p>
+            </div>
+        </article>
+        <article class="event-card">
+            <img src="https://static.wixstatic.com/media/6d1dcf_6df73562398742568339ecd0b29025f4~mv2.jpg/v1/crop/x_1104,y_936,w_3351,h_2293/fill/w_203,h_136,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/6d1dcf_6df73562398742568339ecd0b29025f4~mv2.jpg" alt="Event" class="event-image">
+            <div class="event-details">
+                <div class="event-date">February 27 TO 29</div>
+                <h3 class="event-title">ARCANES!!!</h3>
+                <p class="event-desc">"Welcome to the grand spectacle! Arcanes 2024 is finally here. Immerse yourself in our flagship multi-day festival featuring celebrity performances, inter-college competitions, and breathtaking exhibitions. Unleash your talent, witness the magic, and create memories that will last a lifetime. This is not just a fest; it's a legacy!"</p>
+            </div>
+        </article>
+    </section>
+     <section id="mar" class="month-section">
+        <article class="event-card">
+            <img src="https://miro.medium.com/v2/resize:fit:1200/1*5B2mug0q9e2un1hPq-3UlA.jpeg" alt="Event" class="event-image">
+            <div class="event-details">
+                <div class="event-date">MARCH 14 TO 16</div>
+                <h3 class="event-title">BIGGEST CODING CONTEST</h3>
+                <p class="event-desc">"Gear up for the ultimate battle of logic! Compete against the sharpest minds to solve complex algorithmic puzzles under the clock. Whether you're a Python pro or a C++ enthusiast, debug your way to the top and claim the title of Master Coder!"</p>
+            </div>
+        </article>
+         <article class="event-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb26ciRgBGNm2GuMYBCj3bgE42iCZFWmhaDw&s" alt="Event" class="event-image">
+            <div class="event-details">
+                <div class="event-date">MARCH 24TH</div>
+                <h3 class="event-title">ROBOTICS SHOWCASE</h3>
+                <span style="font-size: 12px; color: #7B3F00; font-weight: bold;">🤖 LIVE DEMOS</span>
+                <p class="event-desc">Witness the future in motion! Experience a thrilling display of autonomous bots, drone racing, and mechanical ingenuity as engineering comes to life.</p>
+            </div>
+        </article>
+    </section>
+     <section id="apr" class="month-section">
+        <article class="event-card">
+            <img src="data:image/jpeg;base64,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" alt="Event" class="event-image">
+            <div class="event-details">
+                <div class="event-date">APRIL 9</div>
+                <h3 class="event-title">DANCE BATTLE</h3>
+                <p class="event-desc">"Step up and own the stage! Witness the ultimate face-off as dancers battle it out in various styles. From hip-hop to contemporary, feel the rhythm and watch the energy explode. Who will take home the title of Dance Champion? Bring your best moves!"</p>
+            </div>
+        </article>
+         <article class="event-card">
+            <img src="https://iamyenoh.wordpress.com/wp-content/uploads/2019/11/sports-fest-logo.jpg" alt="Event" class="event-image">
+            <div class="event-details">
+                <div class="event-date">APRIL 20 TO 24</div>
+                <h3 class="event-title">XUBERANCE(SPORTS FEST) </h3>
+                <p class="event-desc">"Unleash your inner athlete! Compete in thrilling tournaments, demonstrate true sportsmanship, and push your limits to claim the ultimate championship."</p>
+            </div>
+        </article>
+    </section>
+     <section id="may" class="month-section">
+        <article class="event-card">
+            <img src="https://static.wixstatic.com/media/db66c0_eed427cab9e8484b9986f097c4ad9bcf~mv2.jpg/v1/fill/w_600,h_512,al_c,lg_1,q_80,enc_avif,quality_auto/db66c0_eed427cab9e8484b9986f097c4ad9bcf~mv2.jpg" alt="Event" class="event-image">
+            <div class="event-details">
+                <div class="event-date">MAY 14</div>
+                <h3 class="event-title">ALUMNI INTERACTIONS </h3>
+                <p class="event-desc">"Relive memories and bridge generations! Network with successful professionals, share stories with old friends, and celebrate our growing campus legacy together."</p>
+            </div>
+        </article>
+    </section>
+      <section id="jun" class="month-section">
+        <article class="event-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8_DZDAYbzMNKc91fZCfBdL0C5EIgf2Gjwvg&s" alt="Event" class="event-image">
+            <div class="event-details">
+                <div class="event-date">JUNE 22 TO 30</div>
+                <h3 class="event-title">Summer IVs </h3>
+                <p class="event-desc">"Explore industry giants firsthand! Bridge the gap between classroom theory and real-world practice with guided tours, expert interactions, and technical exposure."</p>
+            </div>
+        </article>
+    </section>
+      <section id="jul" class="month-section">
+        <article class="event-card">
+            <img src="https://wallpapers.com/images/hd/leadership-pictures-xh2nm5xghrn8k0kz.jpg" alt="Event" class="event-image">
+            <div class="event-details">
+                <div class="event-date">JULY 26</div>
+                <h3 class="event-title">LEADERSHIP BOOTCAMP </h3>
+                <p class="event-desc">"Unlock your potential! Master strategic thinking, team management, and effective communication through intensive workshops designed to build the next generation of leaders."</p>
+            </div>
+        </article>
+    </section>
+      <section id="aug" class="month-section">
+        <article class="event-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9TsYG71r_dZcKiyWFNwzn6DiyU3QW2_A1gQ&s" alt="Event" class="event-image">
+            <div class="event-details">
+                <div class="event-date">AUGUST 8</div>
+                <h3 class="event-title">BLOOD DONATION CAMP </h3>
+                <p class="event-desc">"Be a hero, save lives! Join our annual drive to support local hospitals. Your simple contribution makes a massive difference."</p>
+            </div>
+        </article>
+         <article class="event-card">
+            <img src="https://img.freepik.com/premium-photo/india-independence-day-indian-independence-day-happy-indian-independence-day_1050053-5349.jpg?w=360" alt="Event" class="event-image">
+            <div class="event-details">
+                <div class="event-date">AUGUST 15</div>
+                <h3 class="event-title">INDEPENDENCE DAY CULTURAL PROGRAM </h3>
+                <p class="event-desc">"Celebrate our nation’s freedom! Join us for the flag hoisting ceremony followed by patriotic performances, cultural tributes, and sweets distribution."</p>
+            </div>
+        </article>
+    </section>
+      <section id="sep" class="month-section">
+        <article class="event-card">
+            <img src="https://media.assettype.com/sentinelassam-english%2F2024-09-06%2Fkde2h65l%2FGanesh%20Chaturthi.webp" alt="Event" class="event-image">
+            <div class="event-details">
+                <div class="event-date">SEPTEMBER 20</div>
+                <h3 class="event-title">GANESH CHATURTHI POOJA </h3>
+                <p class="event-desc">"Welcome the Lord of Wisdom! Join our grand Aarti and cultural festivities as we celebrate Ganesh Chaturthi with devotion and joy."</p>
+            </div>
+        </article>
+         <article class="event-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIxop21VDnf-EMDskOgY-4-FUg8QUsLS4-5w&s" alt="Event" class="event-image">
+            <div class="event-details">
+                <div class="event-date">SEPTEMBER 20</div>
+                <h3 class="event-title">TECH TALKIES </h3>
+                <p class="event-desc">"Listen to industry experts share insights on emerging technologies. Engaging seminars, live Q&A sessions, and networking opportunities for all tech enthusiasts."</p>
+            </div>
+        </article>
+    </section>
+      <section id="oct" class="month-section">
+        <article class="event-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyVt_itjJpu1QlX57PacXB0BDdAooPfeahyQ&s" alt="Event" class="event-image">
+            <div class="event-details">
+                <div class="event-date">OCTOBER 11 TO 20</div>
+                <h3 class="event-title">NAVRANG! </h3>
+                <p class="event-desc">"Nine nights of rhythmic joy! Celebrate Navratri with daily themed Garba, traditional Aarti, and grand prizes for the best dancers."</p>
+            </div>
+        </article>
+        <article class="event-card">
+            <img src="https://thumbs.dreamstime.com/b/colorful-rangoli-decoration-celebrating-diwali-festival-flower-petals-vibrant-design-made-colored-powders-ai-401275515.jpg" alt="Event" class="event-image">
+            <div class="event-details">
+                <div class="event-date">OCTOBER 24</div>
+                <h3 class="event-title">RANGOLI COMPETITION </h3>
+                <p class="event-desc">"Unleash your creativity with colors! Compete in our grand Rangoli competition to showcase traditional artistry and win exciting festive prizes."</p>
+            </div>
+        </article>
+    </section>
+      <section id="nov" class="month-section">
+        <article class="event-card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyU7ablvrwR1fuPLqCgnV4IAeQ0-sxS1u1MQ&s" alt="Event" class="event-image">
+            <div class="event-details">
+                <div class="event-date">NOVEMBER 16</div>
+                <h3 class="event-title">SIDE HUSTLE FAIR </h3>
+                <p class="event-desc">"Turn ideas into reality! Join our startup pitch competition, network with successful founders, and learn the art of building businesses."</p>
+            </div>
+        </article>
+    </section>
+      <section id="dec" class="month-section">
+        <article class="event-card">
+            <img src="https://media.istockphoto.com/id/1355252387/vector/merry-christmas-party-flyer-bright-vector-illustration-in-cartoon-style-in-green-red-colors.jpg?s=612x612&w=0&k=20&c=Ud1v7UxgWEqggRVLcHERPVgLm1KJO748IWAUIeeKHqQ=" alt="Event" class="event-image">
+            <div class="event-details">
+                <div class="event-date">DECEMBER 25</div>
+                <h3 class="event-title">CHRISTMAS THEME PARTY </h3>
+                <p class="event-desc">"Spread the holiday cheer! Join us for carols, cake cutting, and secret Santa in a winter wonderland filled with joy."</p>
+            </div>
+        </article>
+         <article class="event-card">
+            <img src="https://www.indianholiday.com/wordpress/wp-content/uploads/2025/06/shimla.jpg" alt="Event" class="event-image">
+            <div class="event-details">
+                <div class="event-date">DECEMBER 26-31</div>
+                <h3 class="event-title">WINTER IVs! </h3>
+                <p class="event-desc">"Experience industry in the winter chill! Combine technical learning with travel fun, exploring top-tier companies while making unforgettable memories with friends."</p>
+            </div>
+        </article>
+    </section>
+
+    </main>
+
+<footer>
+    <footer style="background-color: #7B3F00; color: #F4C2C2; padding: 40px 20px; text-align: center; margin-top: 50px; border-top: 4px solid #F4C2C2;">
+    <div style="max-width: 1000px; margin: 0 auto;">
+        
+        <div style="margin-bottom: 25px;">
+            <a href="college.html" style="color: #F4C2C2; text-decoration: none; margin: 0 15px; font-size: 14px;">College Website</a>
+            <a href="contact us.html" style="color: #F4C2C2; text-decoration: none; margin: 0 15px; font-size: 14px;">Contact Us</a>
+            <a href="guidelines.html" style="color: #F4C2C2; text-decoration: none; margin: 0 15px; font-size: 14px;">Event Guidelines</a>
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid rgba(244, 194, 194, 0.3); margin-bottom: 25px;">
+
+        <p style="font-size: 18px; margin-bottom: 10px; font-weight: bold;">
+            Made with Love ❤️ from UMIT
+        </p>
+
+        <p style="font-size: 12px; opacity: 0.8;">
+            &copy; 2026 UMIT Campus Events. All Rights Reserved.
+        </p>
+    </div>
+</footer>
+</footer>
+
+<script>
+    function showMonth(monthId) {
+        // Hide all sections
+        const sections = document.querySelectorAll('.month-section');
+        sections.forEach(sec => sec.classList.remove('active'));
+
+        // Deactivate all buttons
+        const buttons = document.querySelectorAll('.month-btn');
+        buttons.forEach(btn => btn.classList.remove('active'));
+
+        // Show the selected section
+        document.getElementById(monthId).classList.add('active');
+
+        // Highlight the clicked button
+        event.currentTarget.classList.add('active');
+    }
+</script>
+
+</body>
+</html>

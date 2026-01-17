@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - UMIT</title>
+    <style>
+        :root {
+            --baby-pink: #F4C2C2;
+            --chocolate: #7B3F00;
+            --white: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            /* Replace the URL below with your campus background image */
+            background: linear-gradient(rgba(244, 194, 194, 0.8), rgba(244, 194, 194, 0.8)), 
+                        url('https://static.wixstatic.com/media/847fd2_cd5a4469bd8842d28c48d9cd30d02844~mv2.jpg/v1/fill/w_640,h_342,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/847fd2_cd5a4469bd8842d28c48d9cd30d02844~mv2.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--chocolate);
+            text-align: center;
+        }
+
+        /* Stickers / Decorative Elements */
+        .sticker {
+            position: absolute;
+            width: 80px;
+            opacity: 0.8;
+            z-index: -1;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            border: 5px solid var(--chocolate);
+            position: relative;
+        }
+
+        .college-logo {
+            width: 120px;
+            margin-bottom: 20px;
+        }
+
+        /* Search Section - Big & Bold */
+        .search-section {
+            margin: 40px 0;
+        }
+
+        .search-box {
+            width: 70%;
+            padding: 15px;
+            font-size: 1.2rem;
+            border: 3px solid var(--chocolate);
+            border-radius: 10px 0 0 10px;
+            outline: none;
+        }
+
+        .search-btn {
+            width: 20%;
+            padding: 15px;
+            font-size: 1.2rem;
+            background: var(--chocolate);
+            color: var(--white);
+            border: 3px solid var(--chocolate);
+            border-radius: 0 10px 10px 0;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .search-btn:hover { background: #5a2e00; }
+
+        .contact-info {
+            font-size: 1.3rem;
+            line-height: 2;
+            font-weight: bold;
+        }
+
+        /* Footer Ads Bar */
+        .ads-footer {
+            background: var(--chocolate);
+            color: var(--baby-pink);
+            padding: 15px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .ads-track {
+            display: inline-block;
+            white-space: nowrap;
+            animation: scroll-left 20s linear infinite;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--chocolate);
+            text-decoration: underline;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="https://cdn-icons-png.flaticon.com/512/2991/2991231.png" class="sticker" style="top:10%; left:5%;" alt="sticker">
+    <img src="https://cdn-icons-png.flaticon.com/512/2916/2916315.png" class="sticker" style="top:50%; right:5%;" alt="sticker">
+
+    <div class="container">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC_byQVJHIQH1_JxdTK2wwwUrbxfLBntStIg&s" alt="College Logo" class="college-logo">
+        
+        <h1>Connect With Us</h1>
+        
+        <div class="search-section">
+            <h3>Have a specific query?</h3>
+            <input type="text" class="search-box" placeholder="Ask anything about UMIT...">
+            <button class="search-btn">SEARCH</button>
+        </div>
+
+        <div class="contact-info">
+            <p>📧 Email: <a href="office@umit.sndt.ac.in" style="color: var(--chocolate);">office@umit.sndt.ac.in</a></p>
+            <p>📞 Landline: (022) - 26606040</p>
+        </div>
+
+        <a href="main.html" class="back-link">← Back to Events</a>
+    </div>
+
+    <footer class="ads-footer">
+        <div class="ads-track">
+            ✨ AD: 20% Off at Campus Stationery! | 🍔 AD: Student Special Combo at Tech-Cafe! | 📚 AD: Book Fair this Friday! | 🎓 AD: Internship Drive Opening Soon! ✨
+        </div>
+    </footer>
+
+</body>
+</html>
